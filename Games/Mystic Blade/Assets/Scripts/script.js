@@ -4,7 +4,7 @@ const ctx = canvas.getContext('2d')
 const timerElement = document.getElementById('timer');
 
 let roundTime = 120;
-const Debugging = true;
+const Debugging = false;
 
 let matchActive = true;
 let roundOver = false;
@@ -149,31 +149,45 @@ Promise.all( [ player_1.Init(), player_2.Init() ] ).then(() => {
    console.log('Error loading players:', error);
 });
 
-function Action(player, event) {
+function Action(player, event, enabled) {
    if (player.Hero.Health > 0 && !player.Combat.Damaged) {
       switch (event) {
          case "Jump":
-            if (player.WorldPosition.Y >= 250 && player.Velocity.Y === 0 && player.Combat.Attacking != true) {
+            if (enabled === true && player.WorldPosition.Y >= 250 && player.Velocity.Y === 0 && player.Combat.Attacking != true) {
                player.Velocity.Y = -20;
             }
    
             break;
          case "Move_Left":
-            player.Flipped = true;
-            if (player.Combat.Attacking != true) {
-               player.Velocity.X = -5;
+            if (enabled === true) {
+               player.Flipped = true;
+
+               if (player.Combat.Attacking != true) {
+                  player.Velocity.X = -5;
+               }
+            } else {
+               if (player.Velocity.X < 0) {
+                  player.Velocity.X = 0;
+               }
             }
    
             break;
          case "Move_Right":
-            player.Flipped = false;
-            if (player.Combat.Attacking != true) {
-               player.Velocity.X = 5;
+            if (enabled === true) {
+               player.Flipped = false;
+               
+               if (player.Combat.Attacking != true) {
+                  player.Velocity.X = 5;
+               }
+            } else {
+               if (player.Velocity.X > 0) {
+                  player.Velocity.X = 0;
+               }
             }
    
             break;
          case "Attack":
-            if (player.WorldPosition.Y >= 250 && player.Velocity.Y === 0 && player.Combat.Debounce != true) {
+            if (enabled === true && player.WorldPosition.Y >= 250 && player.Velocity.Y === 0 && player.Combat.Debounce != true) {
                player.Combat.Debounce = true;
                player.Combat.Attacking = true;
                player.Velocity.X = 0;
@@ -199,109 +213,18 @@ window.addEventListener("keydown", (event) => {
    if (roundOver === true) return;
 
    const targetPlayer = actionKey(event.key);
-   console.log(actionKey(event.key))
-   if (1 == 2) {
-      
-   }
-
-   // Player 1 Key Events
-   if (player_1.Hero.Health > 0 && !player_1.Combat.Damaged) {
-      switch (event.key) {
-         case "w":
-            if (player_1.WorldPosition.Y >= 250 && player_1.Velocity.Y === 0 && player_1.Combat.Attacking != true) {
-               player_1.Velocity.Y = -20;
-            }
    
-            break;
-         case "a":
-            player_1.Flipped = true;
-            if (player_1.Combat.Attacking != true) {
-               player_1.Velocity.X = -5;
-            }
-   
-            break;
-         case "d":
-            player_1.Flipped = false;
-            if (player_1.Combat.Attacking != true) {
-               player_1.Velocity.X = 5;
-            }
-   
-            break;
-         case "s":
-            if (player_1.WorldPosition.Y >= 250 && player_1.Velocity.Y === 0 && player_1.Combat.Debounce != true) {
-               player_1.Combat.Debounce = true;
-               player_1.Combat.Attacking = true;
-               player_1.Velocity.X = 0;
-               player_1.Animate("Attack_" + player_1.Combat.Combo);
-            }
-   
-            break;
-      }
-   }
-   
-   // Player 2 Key Events
-   if (player_2.Hero.Health > 0 && !player_2.Combat.Damaged) {
-      switch (event.key) {
-         case "ArrowUp":
-            if (player_2.WorldPosition.Y >= 250 && player_2.Velocity.Y === 0 && player_2.Combat.Attacking != true) {
-               player_2.Velocity.Y = -20;
-            }
-   
-            break;
-         case "ArrowLeft":
-            player_2.Flipped = true;
-            if (player_2.Combat.Attacking != true) {
-               player_2.Velocity.X = -5;
-            }
-   
-            break;
-         case "ArrowRight":
-            player_2.Flipped = false;
-            if (player_2.Combat.Attacking != true) {
-               player_2.Velocity.X = 5;
-            }
-            
-            break;
-         case "ArrowDown":
-            if (player_2.WorldPosition.Y >= 250 && player_2.Velocity.Y === 0 && player_2.Combat.Debounce != true) {
-               player_2.Combat.Debounce = true;
-               player_2.Combat.Attacking = true;
-               player_2.Velocity.X = 0;
-               player_2.Animate("Attack_" + player_2.Combat.Combo);
-            }
-            
-            break;
-      }
+   if (targetPlayer && GetPlayer(targetPlayer)) {
+      Action(GetPlayer(targetPlayer), actionKeybinds[targetPlayer][event.key], true)
    }
 })
 
 window.addEventListener('keyup', (event) => {
+   if (roundOver === true) return;
 
-   // Player 1 Key Events
-   switch (event.key) {
-      case 'd':
-         if (player_1.Velocity.X > 0) {
-            player_1.Velocity.X = 0;
-         }
-         break;
-      case 'a':
-         if (player_1.Velocity.X < 0) {
-            player_1.Velocity.X = 0;
-         }
-         break;
-   }
-
-   // Player 2 Key Events
-   switch (event.key) {
-      case 'ArrowRight':
-         if (player_2.Velocity.X > 0) {
-            player_2.Velocity.X = 0;
-         }
-         break;
-      case 'ArrowLeft':
-         if (player_2.Velocity.X < 0) {
-            player_2.Velocity.X = 0;
-         }
-         break;
+   const targetPlayer = actionKey(event.key);
+   
+   if (targetPlayer && GetPlayer(targetPlayer)) {
+      Action(GetPlayer(targetPlayer), actionKeybinds[targetPlayer][event.key], false)
    }
 })

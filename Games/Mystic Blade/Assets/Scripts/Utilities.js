@@ -52,6 +52,11 @@ function GetEnemy(player) {
 }
 
 function GetPlayer(player) {
+   if (typeof player === "string") {
+      if (player.toLowerCase() === "player_1") return player_1;
+      if (player.toLowerCase() === "player_2") return player_2;
+   }
+
    return player === player_1 ? player_1 : player_2
 }
 
