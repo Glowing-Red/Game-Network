@@ -29,18 +29,14 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
 function updateTimer(element, startTime, elapsed) {
    if (roundOver === true) return true;
 
-   var currentTime = new Date().getTime();
-   var elapsedTimeInSeconds = Math.floor((currentTime - startTime) / 1000);
-   var remainingTimeInSeconds = elapsed - elapsedTimeInSeconds;
+   const currentTime = new Date().getTime();
+   const elapsedTimeInSeconds = Math.floor((currentTime - startTime) / 1000);
+   const remainingTimeInSeconds = Math.max(0, elapsed - elapsedTimeInSeconds);
 
-   if (remainingTimeInSeconds <= 0) {
-      remainingTimeInSeconds = 0;
-   }
-
-   var minutes = Math.floor(remainingTimeInSeconds / 60);
-   var seconds = remainingTimeInSeconds % 60;
+   const minutes = Math.floor(remainingTimeInSeconds / 60);
+   const seconds = remainingTimeInSeconds % 60;
    
-   var formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
+   const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
    
    element.textContent = minutes + ':' + formattedSeconds;
    

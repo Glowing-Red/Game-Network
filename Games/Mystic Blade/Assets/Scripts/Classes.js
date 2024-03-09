@@ -121,8 +121,8 @@ class Player {
 
    Draw() {
       if (this.Flipped === true) {
-         var tempCanvas = document.createElement('canvas');
-         var tempCtx = tempCanvas.getContext('2d');
+         const tempCanvas = document.createElement('canvas');
+         const tempCtx = tempCanvas.getContext('2d');
          
          tempCanvas.width = (this.Image.width / this.Frames.Max) * this.Scale;
          tempCanvas.height = this.Image.height * this.Scale;

@@ -22,7 +22,7 @@ const actionKeybinds = {
       "ArrowRight": "Move_Right",
    }
 };
-var startTime = new Date().getTime();
+let startTime = new Date().getTime();
 
 canvas.width = 1024
 canvas.height = 576
