@@ -117,9 +117,6 @@ function tick() {
    
    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-   ReAnimate(player_1);
-   ReAnimate(player_2);
-
    for (const key in currentScenery.Layers) {
       if (currentScenery.Layers.hasOwnProperty(key)) {
          if (key < 2) {
@@ -147,6 +144,9 @@ function tick() {
          }
       }
    }
+
+   ReAnimate(player_1);
+   ReAnimate(player_2);
 
    if (roundOver === true) {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
