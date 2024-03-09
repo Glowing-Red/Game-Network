@@ -124,6 +124,8 @@ function GameOver() {
    if (roundOver === false && ( player_1.Hero.Health <= 0 ||player_2.Hero.Health <= 0 || updateTimer(timerElement, startTime, roundTime) <= 0 )) {
       roundOver = true;
       endTime = new Date().getTime();
+      player_1.Velocity.X = 0;
+      player_2.Velocity.X = 0;
    }
 }
 
@@ -148,14 +150,6 @@ function tick() {
       }
    }
 
-   if (roundOver === true) {
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      player_1.Velocity.X = 0;
-      player_2.Velocity.X = 0;
-   }
-
    for (const key in currentScenery.Layers) {
       if (currentScenery.Layers.hasOwnProperty(key)) {
          if (key == 2) {
@@ -169,11 +163,6 @@ function tick() {
    ReAnimate(player_1);
    ReAnimate(player_2);
 
-   if (roundOver === true) {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-   }
-
    for (const key in currentScenery.Layers) {
       if (currentScenery.Layers.hasOwnProperty(key)) {
          if (key > 2) {
@@ -182,6 +171,11 @@ function tick() {
             }
          }
       }
+   }
+
+   if (roundOver === true) {
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
    }
    
    Damage(player_1);

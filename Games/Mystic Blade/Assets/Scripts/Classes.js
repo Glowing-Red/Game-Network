@@ -120,51 +120,54 @@ class Player {
    }
 
    Draw() {
+      const tempCanvas = document.createElement('canvas');
+      const tempCtx = tempCanvas.getContext('2d');
+      
+      tempCanvas.width = (this.Image.width / this.Frames.Max) * this.Scale;
+      tempCanvas.height = this.Image.height * this.Scale;
+      
+      tempCanvas.width = tempCanvas.width > 0 ? tempCanvas.width : 1
+      tempCanvas.height = tempCanvas.height > 0 ? tempCanvas.height : 1
+      
       if (this.Flipped === true) {
-         const tempCanvas = document.createElement('canvas');
-         const tempCtx = tempCanvas.getContext('2d');
-         
-         tempCanvas.width = (this.Image.width / this.Frames.Max) * this.Scale;
-         tempCanvas.height = this.Image.height * this.Scale;
-         
-         tempCanvas.width = tempCanvas.width > 0 ? tempCanvas.width : 1
-         tempCanvas.height = tempCanvas.height > 0 ? tempCanvas.height : 1
-         
          tempCtx.translate(tempCanvas.width, 0);
          tempCtx.scale(-1, 1);
-
-         tempCtx.drawImage(
-            this.Image,
-            this.Frames.Current * (this.Image.width / this.Frames.Max),
-            0,
-            this.Image.width / this.Frames.Max,
-            this.Image.height,
-            0,
-            0,
-            (this.Image.width / this.Frames.Max) * this.Scale,
-            this.Image.height * this.Scale
-         )
-         
-         ctx.drawImage(
-            tempCanvas,
-            this.Position.X,
-            this.Position.Y,
-            (this.Image.width / this.Frames.Max) * this.Scale,
-            this.Image.height * this.Scale
-         )
-      } else {
-         ctx.drawImage(
-            this.Image,
-            this.Frames.Current * (this.Image.width / this.Frames.Max),
-            0,
-            this.Image.width / this.Frames.Max,
-            this.Image.height,
-            this.Position.X,
-            this.Position.Y,
-            (this.Image.width / this.Frames.Max) * this.Scale,
-            this.Image.height * this.Scale
-         )
       }
+
+      tempCtx.drawImage(
+         this.Image,
+         this.Frames.Current * (this.Image.width / this.Frames.Max),
+         0,
+         this.Image.width / this.Frames.Max,
+         this.Image.height,
+         0,
+         0,
+         (this.Image.width / this.Frames.Max) * this.Scale,
+         this.Image.height * this.Scale
+      )
+      
+      if (roundOver === true) {
+         const imageData = tempCtx.getImageData(0, 0, canvas.width, canvas.height);
+         const data = imageData.data;
+         
+         for (let i = 0; i < data.length; i += 4) {
+            if (data[i + 3] !== 0) {
+               data[i] = 0;
+               data[i + 1] = 0;
+               data[i + 2] = 0;
+            }
+         }
+         
+         tempCtx.putImageData(imageData, 0, 0);
+      }
+      
+      ctx.drawImage(
+         tempCanvas,
+         this.Position.X,
+         this.Position.Y,
+         (this.Image.width / this.Frames.Max) * this.Scale,
+         this.Image.height * this.Scale
+      )
       
       if (Debugging === true) {
          ctx.fillStyle = 'rgba(255, 0, 0, 0.5)'
