@@ -29,6 +29,27 @@ const availableSceneries = {
          "Background": 1
       },
       "Ground": 250
+   },
+   "Ruins": {
+      "Layers": {
+         "Background": 1,
+         "Grass": 3
+      },
+      "Ground": 45
+   },
+   "Amusement Park": {
+      "Layers": {
+         "Background": 1,
+         "Sand": 3
+      },
+      "Ground": 270
+   },
+   "Sky": {
+      "Layers": {
+         "Background": 1,
+         "Clouds": 3
+      },
+      "Ground": 130
    }
 };
 const actionKeybinds = {
@@ -61,13 +82,13 @@ function ReAnimate(player) {
       return;
    }
 
-   if (player.WorldPosition.Y < 250) {
+   if (player.WorldPosition.Y < currentScenery.Ground) {
       if (player.Velocity.Y < 0) {
          player.Animate("Jump");
       } else {
          player.Animate("Fall");
       }
-   } else if (player.WorldPosition.Y >= 250) {
+   } else if (player.WorldPosition.Y >= currentScenery.Ground) {
       if (player.Velocity.X == 0) {
          player.Animate("Idle");
       } else {
@@ -178,7 +199,7 @@ function Action(player, event, enabled) {
    if (player.Hero.Health > 0 && !player.Combat.Damaged) {
       switch (event) {
          case "Jump":
-            if (enabled === true && player.WorldPosition.Y >= 250 && player.Velocity.Y === 0 && player.Combat.Attacking != true) {
+            if (enabled === true && player.WorldPosition.Y >= currentScenery.Ground && player.Velocity.Y === 0 && player.Combat.Attacking != true) {
                player.Velocity.Y = -20;
             }
    
@@ -212,7 +233,7 @@ function Action(player, event, enabled) {
    
             break;
          case "Attack":
-            if (enabled === true && player.WorldPosition.Y >= 250 && player.Velocity.Y === 0 && player.Combat.Debounce != true) {
+            if (enabled === true && player.WorldPosition.Y >= currentScenery.Ground && player.Velocity.Y === 0 && player.Combat.Debounce != true) {
                player.Combat.Debounce = true;
                player.Combat.Attacking = true;
                player.Velocity.X = 0;
