@@ -16,6 +16,21 @@ let startTime;
 let endTime;
 
 const pickableHeroes = ["Aurelia", "Onimaru", "Raijin", "Shiroku", "Umbra", "Zephyrion"];
+const availableSceneries = {
+   "Woods": {
+      "Layers": {
+         "Background": 1,
+         "Grass": 3
+      },
+      "Ground": 300
+   },
+   "Forest": {
+      "Layers": {
+         "Background": 1
+      },
+      "Ground": 250
+   }
+};
 const actionKeybinds = {
    "Player_1": {
       "s": "Attack",
@@ -31,17 +46,10 @@ const actionKeybinds = {
    }
 };
 
-canvas.width = 1024
-canvas.height = 576
+canvas.width = 1024;
+canvas.height = 576;
 
-const background = new Sprite({
-   Position: {
-      X: 0,
-      Y: 0,
-      Offset: 0
-   },
-   Decal: './Assets/Images/Background.png'
-})
+let currentScenery = [];
 
 function ReAnimate(player) {
    if (player.Hero.Health <= 0) {
@@ -111,8 +119,16 @@ function tick() {
 
    ReAnimate(player_1);
    ReAnimate(player_2);
-   
-   background.Update();
+
+   for (const key in currentScenery.Layers) {
+      if (currentScenery.Layers.hasOwnProperty(key)) {
+         if (key < 2) {
+            for (const index in currentScenery.Layers[key]) {
+               currentScenery.Layers[key][index].Update();
+            }
+         }
+      }
+   }
 
    if (roundOver === true) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
@@ -122,12 +138,29 @@ function tick() {
       player_2.Velocity.X = 0;
    }
 
-   player_1.Update();
-   player_2.Update();
+   for (const key in currentScenery.Layers) {
+      if (currentScenery.Layers.hasOwnProperty(key)) {
+         if (key == 2) {
+            for (const index in currentScenery.Layers[key]) {
+               currentScenery.Layers[key][index].Update();
+            }
+         }
+      }
+   }
 
    if (roundOver === true) {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
+   }
+
+   for (const key in currentScenery.Layers) {
+      if (currentScenery.Layers.hasOwnProperty(key)) {
+         if (key > 2) {
+            for (const index in currentScenery.Layers[key]) {
+               currentScenery.Layers[key][index].Update();
+            }
+         }
+      }
    }
    
    Damage(player_1);
@@ -222,25 +255,54 @@ window.addEventListener('keyup', (event) => {
 })
 
 function Init(Hero_1, Hero_2) {
+   const randomScenery = Object.keys(availableSceneries)[Math.floor(Math.random() * Object.keys(availableSceneries).length)];
+
+   currentScenery = {
+      Name: randomScenery,
+      Ground: availableSceneries[randomScenery].Ground,
+      Layers: {}
+   };
+
    player_1 = new Player({
       Hero: Hero_1,
       Position: {
          X: 100,
-         Y: 250
+         Y: currentScenery.Ground
       },
       Flipped: false,
       SpriteSheet: true
-   })
+   });
    
    player_2 = new Player({
       Hero: Hero_2,
       Position: {
          X: 500,
-         Y: 250
+         Y: currentScenery.Ground
       },
       Flipped: true,
       SpriteSheet: true
-   })
+   });
+
+   currentScenery.Layers["2"] = [];
+   currentScenery.Layers["2"].push(player_1);
+   currentScenery.Layers["2"].push(player_2);
+
+   for (const layer in availableSceneries[currentScenery.Name].Layers) {
+      if (!(availableSceneries[currentScenery.Name].Layers[layer] in currentScenery.Layers)) {
+         currentScenery.Layers[availableSceneries[currentScenery.Name].Layers[layer]] = [];
+      }
+      
+      const newLayer = new Sprite({
+         Position: {
+            X: 0,
+            Y: 0,
+            Offset: 0
+         },
+         Decal: `./Assets/Images/Scenery/${currentScenery.Name}/${layer}.png`
+      })
+      
+      currentScenery.Layers[availableSceneries[currentScenery.Name].Layers[layer]].push(newLayer);
+   };
 
    Promise.all( [ player_1.Init(), player_2.Init() ] ).then(() => {
       matchActive = true;

@@ -186,9 +186,9 @@ class Player {
       this.WorldPosition.Y += this.Velocity.Y;
       this.WorldPosition.X += this.Velocity.X;
 
-      if (this.WorldPosition.Y >= 250) {
+      if (this.WorldPosition.Y >= currentScenery.Ground) {
          this.Velocity.Y = 0;
-         this.WorldPosition.Y = 250;
+         this.WorldPosition.Y = currentScenery.Ground;
       } else {
          this.Velocity.Y++;
       }
