@@ -215,11 +215,11 @@ class Player {
       }
 
       this.Frames.Tick++;
-      if (this.Frames.Tick % this.Frames.RefreshRate === 0 && (roundOver != true || this.Frames.Playing === "Death")) {
+      if (this.Frames.Tick % this.Frames.RefreshRate === 0) {
          if (this.Frames.Current < this.Frames.Max - 1) {
             this.Frames.Current++;
          } else {
-            if (this.Hero.Health <= 0) return;
+            if (this.Hero.Health <= 0 || roundOver === true) return;
 
             if (this.Frames.Playing.includes("Attack")) {
                this.Combat.Attacking = false;
