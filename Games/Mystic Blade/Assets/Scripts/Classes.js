@@ -182,8 +182,6 @@ class Player {
    }
    
    Update() {
-      if (this.Hero.Health <= 0 && roundOver != true) roundOver = true;
-
       this.Draw();
       this.WorldPosition.Y += this.Velocity.Y;
       this.WorldPosition.X += this.Velocity.X;

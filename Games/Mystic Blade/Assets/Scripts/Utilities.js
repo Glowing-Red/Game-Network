@@ -27,8 +27,6 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
 }
 
 function updateTimer(element, startTime, elapsed) {
-   if (roundOver === true) return true;
-
    const currentTime = new Date().getTime();
    const elapsedTimeInSeconds = Math.floor((currentTime - startTime) / 1000);
    const remainingTimeInSeconds = Math.max(0, elapsed - elapsedTimeInSeconds);
@@ -40,7 +38,7 @@ function updateTimer(element, startTime, elapsed) {
    
    element.textContent = minutes + ':' + formattedSeconds;
    
-   return remainingTimeInSeconds === 0;
+   return remainingTimeInSeconds;
 }
 
 function GetEnemy(player) {

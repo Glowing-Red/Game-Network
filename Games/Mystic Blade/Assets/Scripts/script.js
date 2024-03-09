@@ -6,8 +6,16 @@ const timerElement = document.getElementById('timer');
 let roundTime = 120;
 const Debugging = false;
 
-let matchActive = true;
-let roundOver = false;
+let matchActive = false;
+let roundOver = true;
+
+let player_1;
+let player_2;
+
+let startTime;
+let endTime;
+
+const pickableHeroes = ["Aurelia", "Onimaru", "Raijin", "Shiroku", "Umbra", "Zephyrion"];
 const actionKeybinds = {
    "Player_1": {
       "s": "Attack",
@@ -22,7 +30,6 @@ const actionKeybinds = {
       "ArrowRight": "Move_Right",
    }
 };
-let startTime = new Date().getTime();
 
 canvas.width = 1024
 canvas.height = 576
@@ -34,26 +41,6 @@ const background = new Sprite({
       Offset: 0
    },
    Decal: './Assets/Images/Background.png'
-})
-
-const player_1 = new Player({
-   Hero: "Shiroku",
-   Position: {
-      X: 100,
-      Y: 250
-   },
-   Flipped: false,
-   SpriteSheet: true
-})
-
-const player_2 = new Player({
-   Hero: "Raijin",
-   Position: {
-      X: 500,
-      Y: 250
-   },
-   Flipped: true,
-   SpriteSheet: true
 })
 
 function ReAnimate(player) {
@@ -104,9 +91,20 @@ function Damage(player) {
    }
 }
 
-function tick() {
-   if (updateTimer(timerElement, startTime, roundTime)) {
+function GameOver() {
+   if (roundOver === false && ( player_1.Hero.Health <= 0 ||player_2.Hero.Health <= 0 || updateTimer(timerElement, startTime, roundTime) <= 0 )) {
       roundOver = true;
+      endTime = new Date().getTime();
+   }
+}
+
+function tick() {
+   GameOver()
+
+   if (roundOver === true && updateTimer(timerElement, endTime, 5) <= 0) {
+      Init(pickableHeroes[Math.floor(Math.random() * pickableHeroes.length)], pickableHeroes[Math.floor(Math.random() * pickableHeroes.length)]);
+      
+      return;
    }
    
    ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -142,12 +140,6 @@ function tick() {
       tick();
    }, 1000 / 40);
 }
-
-Promise.all( [ player_1.Init(), player_2.Init() ] ).then(() => {
-   tick()
-}).catch(error => {
-   console.log('Error loading players:', error);
-});
 
 function Action(player, event, enabled) {
    if (player.Hero.Health > 0 && !player.Combat.Damaged) {
@@ -228,3 +220,38 @@ window.addEventListener('keyup', (event) => {
       Action(GetPlayer(targetPlayer), actionKeybinds[targetPlayer][event.key], false)
    }
 })
+
+function Init(Hero_1, Hero_2) {
+   player_1 = new Player({
+      Hero: Hero_1,
+      Position: {
+         X: 100,
+         Y: 250
+      },
+      Flipped: false,
+      SpriteSheet: true
+   })
+   
+   player_2 = new Player({
+      Hero: Hero_2,
+      Position: {
+         X: 500,
+         Y: 250
+      },
+      Flipped: true,
+      SpriteSheet: true
+   })
+
+   Promise.all( [ player_1.Init(), player_2.Init() ] ).then(() => {
+      matchActive = true;
+      roundOver = false;
+      
+      startTime = new Date().getTime();
+      
+      tick();
+   }).catch(error => {
+      console.log('Error loading players:', error);
+   });
+}
+
+Init(pickableHeroes[Math.floor(Math.random() * pickableHeroes.length)], pickableHeroes[Math.floor(Math.random() * pickableHeroes.length)]);
