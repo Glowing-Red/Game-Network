@@ -37,7 +37,7 @@ const background = new Sprite({
 })
 
 const player_1 = new Player({
-   Hero: "Onimaru",
+   Hero: "Shiroku",
    Position: {
       X: 100,
       Y: 250

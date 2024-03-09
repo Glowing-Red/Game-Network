@@ -1,0 +1,52 @@
+{
+   "Attack": {
+      "Attack_1": {
+         "Damage": 15,
+         "Cooldown": 750,
+         "Hitbox": {
+            "Active": [7,8],
+            "Offset": 50,
+            "Width": 80,
+            "Height": 150
+         }
+      }
+   },
+   "SpriteSheets": {
+      "Idle": {
+         "Image": "Idle.png",
+         "Frames": 9
+      },
+      "Run": {
+         "Image": "Run.png",
+         "Frames": 6
+      },
+      "Jump": {
+         "Image": "Idle.png",
+         "Frames": 9
+      },
+      "Fall": {
+         "Image": "Idle.png",
+         "Frames": 9
+      },
+      "Damaged": {
+         "Image": "Damaged.png",
+         "Frames": 4
+      },
+      "Death": {
+         "Image": "Death.png",
+         "Frames": 24
+      },
+      "Attack_1": {
+         "Image": "Attack.png",
+         "Frames": 10
+      }
+   },
+   "Hitbox": {
+      "Offset": {"X": 78, "Y": 96},
+      "Width": 90,
+      "Height": 100
+   },
+   "Offset" : {"X": -64, "Y": -45},
+   "Flip" : {"X": -6, "Y": 0},
+   "Scale" : 3
+}
