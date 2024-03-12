@@ -55,8 +55,16 @@ function SetupTicTacToe(gridSize) {
                   for (let i = 0; i < winningDirection.length; i++) {
                      gameBoard[winningDirection[i][0]][winningDirection[i][1]][1].style.color = "red";
                   }
+
+                  setTimeout(function() {
+                     Restart();
+                  }, 1000);
                } else if (checkGameOver()) {
                   gameOver = true;
+
+                  setTimeout(function() {
+                     Restart();
+                  }, 1000);
                } else {
                   flag === 1 ? flag = 0 : flag = 1;
                }
