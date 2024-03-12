@@ -5,24 +5,31 @@
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
    />
-   <link rel="stylesheet" href="mysticStyle.css">
+   <link rel="stylesheet" href="style.css">
    <title>Mystic Blade</title>
 </head>
 <body>
-   <div class="header"></div>
-   <div class="gameContent">
-      <div class="contentBar">
-         <div id="player_1">
-            <div class="HealthDisplay">100/100</div>
-            <div class="HealthBar"></div>
+   <header>
+      <a href="./../../index.html">Home</a>
+      <a href="./../../about me.html">About</a>
+      <a class="active" href="">Mystic Blade</a>
+   </header>
+   
+   <div class="container">
+      <div class="gameContent">
+         <div class="contentBar">
+            <div id="player_1">
+               <div class="HealthDisplay">100/100</div>
+               <div class="HealthBar"></div>
+            </div>
+            <div id="timer">1:00</div>
+            <div id="player_2">
+               <div class="HealthDisplay">100/100</div>
+               <div class="HealthBar"></div>
+            </div>
          </div>
-         <div id="timer">1:00</div>
-         <div id="player_2">
-            <div class="HealthDisplay">100/100</div>
-            <div class="HealthBar"></div>
-         </div>
+         <canvas class="display"></canvas>
       </div>
-      <canvas class="display"></canvas>
    </div>
    
    <script src="Assets/Scripts/Utilities.js"></script>

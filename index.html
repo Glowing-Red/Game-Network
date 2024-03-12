@@ -4,12 +4,36 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="https://fonts.google.com/specimen/Poppins?query=poppins">
+   <link rel="stylesheet" href="style.css">
    <title>Game-Network</title>
 </head>
 
 <body>
-   <h1>Welcome to Glowing-Reds Game Playground!</h1>
-   <a href="Games/Mystic Blade/game.html">Play Tic Tac Toe</a>
+   <header>
+      <a class="active" href="">Home</a>
+      <a href="./about me.html">About</a>
+   </header>
+   
+   <div class="container">
+      <div class="introduction">
+         <h1>Red's Games</h1>
+         <img src="https://avatars.githubusercontent.com/u/79102132?v=4" alt="">
+         <a href="./about me.html"><button>About Me</button></a>
+      </div>
+      
+      <div class="games"></div>
+
+      <div class="modal">
+         <div class="modal-Content">
+            <h2 class="title"></h2>
+            <img class="preview">
+            <a class="button" href="">Play Now</a>
+            <div class="description"></div>
+            <span class="close">&times;</span>
+         </div>
+      </div>
+   </div>
+
+   <script src="script.js"></script>
 </body>
 </html>
