@@ -1,3 +1,7 @@
+window.addEventListener('error', function() {
+   location.reload();
+});
+
 const score = document.getElementById("score");
 const canvas = document.querySelector(".display");
 const ctx = canvas.getContext('2d');
@@ -80,7 +84,7 @@ function tick() {
          scoreActivated = false;
       }
    }
-
+   
    score.innerText = scoreCount.toString().padStart(3, '0');
 
    setTimeout(function() {

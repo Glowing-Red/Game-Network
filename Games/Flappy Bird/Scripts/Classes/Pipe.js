@@ -38,7 +38,7 @@ class Pipes {
 
    Draw() {
       this.Pipes.Top.Image = flippedPipe();
-
+      
       ctx.drawImage(this.Pipes.Top.Image, this.Position.X, this.Pipes.Top.Y);
       ctx.drawImage(this.Pipes.Bottom.Image, this.Position.X, this.Pipes.Bottom.Y);
    }
