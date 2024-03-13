@@ -26,6 +26,7 @@ header {
    margin: 0;
    padding: 0;
    background-color: #27374D;
+   font-family: "Poppins", sans-serif;
    z-index: 999;
 }
 

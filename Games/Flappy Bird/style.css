@@ -26,6 +26,7 @@ header {
    margin: 0;
    padding: 0;
    background-color: #27374D;
+   font-family: "Poppins", sans-serif;
    z-index: 999;
 }
 
@@ -54,4 +55,39 @@ header a:hover {
    width: 100vw;
    height: calc(100vh - 60px);
    margin-top: 60px;
+}
+
+.gameContent {
+   position: relative;
+   height: calc(100vh - 60px);
+   width: 100vw;
+   font-family: 'Press Start 2P', cursive;
+}
+
+.display {
+   height: calc(100vh - 60px);
+   width: 100vw;
+}
+
+.contentBar {
+   position: absolute;
+   height: 10vh;
+   width: 80vw;
+   margin-top: 2vh;
+   margin-left: 10vw;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+#score {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 10vh;
+   width: 140px;
+   color: white;
+   background-color: #526D82;
+   border: 8px solid white;
+   border-radius: 8px;
 }

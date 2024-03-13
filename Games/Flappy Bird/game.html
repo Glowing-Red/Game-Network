@@ -1,10 +1,9 @@
 <head>
-   <link rel="preconnect" href="https://fonts.googleapis.com" />
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-   <link
-      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-      rel="stylesheet"
-   />
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
+   <link rel="stylesheet" href="https://fonts.google.com/specimen/Poppins?query=poppins">
    <link rel="stylesheet" href="style.css">
    <title>Flappy Bird</title>
 </head>
@@ -16,6 +15,17 @@
    </header>
    
    <div class="container">
-      
+      <div class="gameContent">
+         <div class="contentBar">
+            <div id="score">000</div>
+         </div>
+         <canvas class="display" width="500" height="580"></canvas>
+      </div>
    </div>
+   
+   <script src="./Scripts/Utilities.js"></script>
+   <script src="./Scripts/Classes/Player.js"></script>
+   <script src="./Scripts/Classes/Scenery.js"></script>
+   <script src="./Scripts/Classes/Pipe.js"></script>
+   <script src="./Scripts/script.js"></script>
 </body>
