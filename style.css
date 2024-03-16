@@ -182,16 +182,18 @@ header a:hover {
 }
 
 .modal-Content .button {
+   display: flex;
+   justify-content: center;
+   align-items: center;
    grid-column: 1;
    grid-row: 3;
 
-   max-height: 10vh;
+   max-height: 40px;
    padding: 6px;
    background-color: hsla(206, 31%, 90%, 1);
    color: #27374D;
    border-radius: 8px;
    text-decoration: none;
-   text-align: center;
 }
 
 .modal-Content .button:hover {
@@ -248,6 +250,7 @@ header a:hover {
    }
    .modal-Content .description {
       text-align: center;
+      width: 80%;
    }
 }
 
@@ -259,6 +262,10 @@ header a:hover {
    .modal-Content {
       height: 85vh;
       margin: 0 30px;
+   }
+
+   .modal-Content .description {
+      width: 100%;
    }
 }
 

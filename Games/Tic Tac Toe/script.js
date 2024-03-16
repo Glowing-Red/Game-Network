@@ -1,5 +1,9 @@
 const canvas = document.querySelector('.gameBoard');
+const modal = document.querySelector(".modal");
+modal.style.display = "none";
+
 let gameOver = false;
+let gameBoard = [];
 
 function SetupTicTacToe(gridSize) {
    while (canvas.firstChild) {
@@ -14,7 +18,7 @@ function SetupTicTacToe(gridSize) {
       gridSize = 8
    }
 
-   const gameBoard = [];
+   gameBoard = [];
    let flag = 1;
 
    for (let row = 0; row < gridSize; row++) {
@@ -121,6 +125,21 @@ function SetupTicTacToe(gridSize) {
    }
 }
 
+function Resize() {
+   gameBoard.forEach(row => {
+      row.forEach(cellArray => {
+         const cell = cellArray[1];
+         const gridSize = gameBoard.length;
+         
+         cell.style.width = `${cell.parentNode.offsetWidth / gridSize - 5}px`;
+         cell.style.height = `${cell.parentNode.offsetWidth / gridSize - 5}px`;
+         cell.style.fontSize = cell.style.width;
+      });
+   });
+}
+
+window.addEventListener('resize', Resize);
+
 if (canvas) {
    SetupTicTacToe(5);
 }
@@ -130,7 +149,3 @@ function Restart() {
       SetupTicTacToe(5);
    }
 }
-
-const modal = document.querySelector(".modal");
-
-modal.style.display = "flex";

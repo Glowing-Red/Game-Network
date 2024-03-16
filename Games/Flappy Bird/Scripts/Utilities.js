@@ -1,5 +1,5 @@
 function generatePosition() {
-   return { Y: -150 + Math.random() * 300, Gap: 150 + Math.random() * 50 }
+   return { Y: -150 + Math.random() * 300, Gap: 125 + Math.random() * 75 }
 }
 
 

@@ -44,7 +44,7 @@ class Pipes {
    }
    
    Update() {
-      this.Position.X -= 1;
+      this.Position.X -= 2;
 
       this.Draw();
    }
