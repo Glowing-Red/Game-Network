@@ -75,10 +75,6 @@ header a:hover {
    height: 75%;
 }
 
-.content > div {
-   height: 100%;
-}
-
 .profile, .section {
    display: flex;
    flex-direction: row;
@@ -95,6 +91,10 @@ header a:hover {
 
 .profile h1 {
    text-shadow: 0 0 20px #B80104;
+}
+
+.profile .mobile {
+   display: none;
 }
 
 .profile p {
@@ -123,4 +123,43 @@ header a:hover {
 .section p {
    text-align: center;
    font-size: 17px;
+}
+
+@media (max-width: 650px) {
+   .content {
+      flex-direction: column;
+      gap: 25px;
+   }
+   
+   .content h1 {
+      text-align: center;
+   }
+   
+   .profile, .section {
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+      
+      height: auto;
+      margin: 0;
+      padding: 0 20px;
+      padding-bottom: 50px;
+   }
+   
+   .profile .normal {
+      display: none;
+   }
+
+   .profile .mobile {
+      display: block;
+   }
+
+   .profile img {
+      width: 50%;
+   }
+
+   .profile p {
+      margin: 0;
+      text-align: center;
+   }
 }
