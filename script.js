@@ -39,7 +39,8 @@ function Close() {
 function Open(gameName, gameDesc) {
    title.textContent = gameName;
    image.src = `./Games/${gameName}/Preview.png`;
-   description.textContent = gameDesc;
+   description.textContent = "";
+   description.innerHTML += gameDesc;
 
    if (mobileMode === true) {
       button.style.pointerEvents = "none";
@@ -168,7 +169,6 @@ function ReSize() {
    document.documentElement.style.setProperty("--Scroll-Width", ScrollBar() ? `${window.innerWidth - document.documentElement.clientWidth}px` : "0");
 
    mobileMode = MobileDevice();
-   console.log(mobileMode);
 }
 
 ReSize();
