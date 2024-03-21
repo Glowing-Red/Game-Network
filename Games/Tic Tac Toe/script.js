@@ -173,21 +173,38 @@ function OpenSettings() {
 }
 
 function UpdateSlider(slider, numerical) {
-   const childNodes = slider.querySelectorAll('*');
-         
-   for (let i = 0; i < childNodes.length; i++) {
-      const element = childNodes[i];
-      
-      if (!isNaN(element.id) && parseInt(element.id)) {
-         if (element.classList.contains("sliderActive")) {
-            element.classList.remove("sliderActive");
-         }
+   if (slider.lastChange == null) {
+      slider.lastChange = numerical;
+   }
+   
+   const lastChanged = slider.lastChange;
+   const direction = numerical >= lastChanged ? 1 : -1;
 
-         if (parseInt(element.id) <= numerical) {
-            element.classList.add("sliderActive");
+   const childNodes = slider.querySelectorAll('*');
+
+   function ProcessNode(index) {
+      if ((index < childNodes.length && direction === 1) || (direction === -1 && index >= 0 && index < childNodes.length)) {
+         const element = childNodes[index];
+         
+         if (!isNaN(element.id) && parseInt(element.id)) {
+            if (element.classList.contains("sliderActive")) {
+               element.classList.remove("sliderActive");
+            }
+
+            if (parseInt(element.id) <= numerical) {
+               element.classList.add("sliderActive");
+            }
+
+            setTimeout(() => {
+               ProcessNode(index + direction);
+            }, 20);
+         } else {
+            ProcessNode(index + direction);
          }
       }
    }
+   
+   ProcessNode((direction === 1 ? 0 : childNodes.length - 1));
 }
 
 function Change(target, action) {
