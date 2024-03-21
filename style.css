@@ -4,6 +4,10 @@
    box-sizing: border-box;
 }
 
+:root {
+   --scroll-width: 0px;
+}
+
 body {
    display: flex;
    justify-content: center;
@@ -49,7 +53,7 @@ header a:hover {
 .container {
    display: flex;
    flex-direction: column;
-   justify-content: space-evenly;
+   justify-content: start;
    align-items: center;
    text-align: center;
    overflow-x: hidden;
@@ -343,6 +347,7 @@ header a:hover {
       width: auto;
       max-width: 600px;
       margin: 0 40px;
+      margin-right: calc(40px + var(--Scroll-Width));
    }
 
    .modal-Content .title {
@@ -359,13 +364,19 @@ header a:hover {
 }
 
 @media (max-width: 550px) {
+   .highlight {
+      display: none;
+   }
+
    .games {
+      margin-top: 10px;
       grid-template-columns: repeat(auto-fill, minmax(calc(100% / 3), 1fr));
    }
 
    .modal-Content {
       height: 85vh;
       margin: 0 30px;
+      margin-right: calc(30px + var(--Scroll-Width));
    }
 
    .modal-Content .description {
@@ -382,6 +393,7 @@ header a:hover {
    .modal-Content {
       height: 87vh;
       margin: 0 15px;
+      margin-right: calc(15px + var(--Scroll-Width));
    }
 
    .modal-Content .preview {
