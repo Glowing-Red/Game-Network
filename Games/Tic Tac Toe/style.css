@@ -18,9 +18,8 @@ header {
    top: 0;
    left: 0;
    display: flex;
-   justify-content: start;
+   justify-content: space-between;
    align-items: center;
-   gap: 5px;
    height: 60px;
    width: 100vw;
    margin: 0;
@@ -30,12 +29,30 @@ header {
    z-index: 999;
 }
 
+header nav {
+   gap: 5px;
+}
+
 header a {
    margin-left: 20px;
    font-size: larger;
    color: hsla(206, 31%, 90%, 0.8);
    text-decoration: none;
    transition: all 0.2s ease-in-out;
+}
+
+header button {
+   margin-right: 20px;
+   padding: 7.5px;
+   color: white;
+   background-color: #526D82;
+   border-radius: 8px;
+   border: 3px solid white;
+   transition: all 0.2s ease-in-out;
+}
+
+header button:hover {
+   border: 3px solid #526D82;
 }
 
 header .active {
@@ -133,13 +150,14 @@ input:focus {
 .modal-Content {
    position: relative;
    overflow: hidden;
-   display: grid;
-   grid-template-columns: auto 1fr;
-   grid-template-rows: auto auto 1fr;
+   display: flex;
+	flex-direction: column;
+   justify-content: start;
    gap: 10px;
-   
-   width: 60vw;
+
    height: 50vh;
+   width: 95vw;
+   max-width: 500px;
    padding: 20px;
    border: 2px solid white;
    border-radius: 18px;
@@ -147,41 +165,50 @@ input:focus {
    color: white;
 }
 
-.modal-Content .title {
-   grid-column: 1;
-   grid-row: 1;
+.modal-Content h2 {
+   margin-top: 6%;
 }
 
-.modal-Content .preview {
-   grid-column: 1;
-   grid-row: 2;
-   
-   max-height: 32vh;
-   border: 3px solid hsla(206, 31%, 90%, 1);
-   border-radius: 12px;
+.modal-Content .slider {
+   position: relative;
+   display: flex;
+   height: 15%;
+   width: 100%;
 }
 
-.modal-Content .description {
-   grid-column: 2;
-   grid-row: 2 / span 3;
+.sliderSquare {
+   display: flex;
+   flex: 1;
+   align-items: center;
+   justify-content: center;
+   color: white;
+   background-color: #9db2bf00;
+   border: 3px solid white;
+   border-left: 0;
+   font-size: 30px;
+   user-select: none;
+   transition: all 0.2s;
 }
 
-.modal-Content .button {
-   grid-column: 1;
-   grid-row: 3;
-
-   max-height: 10vh;
-   padding: 6px;
-   background-color: hsla(206, 31%, 90%, 1);
-   color: #27374D;
-   border-radius: 8px;
-   text-decoration: none;
-   text-align: center;
+.sliderActive {
+   background-color: #9DB2BF;
 }
 
-.modal-Content .button:hover {
-   background-color: hsla(206, 31%, 90%, 0.8);
+.sliderSquare:hover {
+   color: black;
+   background-color: white;
    cursor: pointer;
+}
+
+.sliderSquare:first-child {
+   border: 3px solid white;
+   border-top-left-radius: 12px;
+   border-bottom-left-radius: 12px;
+}
+
+.sliderSquare:last-child {
+   border-top-right-radius: 12px;
+   border-bottom-right-radius: 12px;
 }
 
 .modal-Content .close {
@@ -199,7 +226,7 @@ input:focus {
    text-decoration: none;
 }
 
-.modal-Content .close:hover, .close:focus {
+.modal-Content .close:hover,.modal-Content .close:focus {
    color: hsla(206, 31%, 90%, 0.8);
    cursor: pointer;
 }

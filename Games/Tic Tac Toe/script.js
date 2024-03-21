@@ -1,9 +1,17 @@
 const canvas = document.querySelector('.gameBoard');
 const modal = document.querySelector(".modal");
+const closeModal = modal.querySelector(".close");
+const sliderGrid = modal.querySelector("#Grid");
+const sliderRow = modal.querySelector("#Row");
+
 modal.style.display = "none";
 
 let gameOver = false;
 let gameBoard = [];
+let gameSettings = {
+   size: 3,
+   row: 3
+}
 
 function SetupTicTacToe(gridSize) {
    while (canvas.firstChild) {
@@ -85,7 +93,7 @@ function SetupTicTacToe(gridSize) {
       return row >= 0 && row < gridSize && cell >= 0 && cell < gridSize;
    }
    
-   const winCondition = 3;
+   const winCondition = gameSettings.row;
    function checkWin(row, cell, rowIncrement, cellIncrement, flag) {
       let cells = [];
       
@@ -141,11 +149,76 @@ function Resize() {
 window.addEventListener('resize', Resize);
 
 if (canvas) {
-   SetupTicTacToe(5);
+   SetupTicTacToe(gameSettings.size);
 }
 
 function Restart() {
    if (canvas && gameOver === true) {
-      SetupTicTacToe(5);
+      SetupTicTacToe(gameSettings.size);
    }
+}
+
+window.onclick = function(event) {
+   if (event.target === modal || event.target === closeModal) {
+      modal.style.display = "none";
+   }
+}
+
+function OpenSettings() {
+   if (modal.style.display !== "flex") {
+      modal.style.display = "flex";
+   } else {
+      modal.style.display = "none";
+   }
+}
+
+function UpdateSlider(slider, numerical) {
+   const childNodes = slider.querySelectorAll('*');
+         
+   for (let i = 0; i < childNodes.length; i++) {
+      const element = childNodes[i];
+      
+      if (!isNaN(element.id) && parseInt(element.id)) {
+         if (element.classList.contains("sliderActive")) {
+            element.classList.remove("sliderActive");
+         }
+
+         if (parseInt(element.id) <= numerical) {
+            element.classList.add("sliderActive");
+         }
+      }
+   }
+}
+
+function Change(target, action) {
+   if (action === "Increase" || action === "Decrease") {
+      if (target === "Grid") {
+         Change(target, action === "Decrease" && gameSettings.size > 3 ? gameSettings.size - 1 : action === "Increase" && gameSettings.size < 8 ? gameSettings.size + 1 : gameSettings.size);
+      } else if (target === "Row") {
+         Change(target, action === "Decrease" && gameSettings.row > 3 ? gameSettings.row - 1 : action === "Increase" && gameSettings.row < 8 ? gameSettings.row + 1 : gameSettings.row);
+      }
+   } else if (typeof(action) === "number") {
+      if (target === "Grid") {
+         if (gameSettings.size === gameSettings.row || action < gameSettings.row) {
+            gameSettings.size = action;
+            gameSettings.row = action;
+         }
+
+         gameSettings.size = action >= 3 ? action : action <= 8 ? action : gameSettings.size ;
+      } else if (target === "Row") {
+         if (action >= 3 && action <= 8) {
+            if (action > gameSettings.size) {
+               gameSettings.row = action;
+               gameSettings.size = action;
+            }
+            
+            gameSettings.row = action;
+         }
+      }
+      
+      UpdateSlider(sliderGrid, gameSettings.size);
+      UpdateSlider(sliderRow, gameSettings.row);
+   }
+
+   SetupTicTacToe(gameSettings.size);
 }

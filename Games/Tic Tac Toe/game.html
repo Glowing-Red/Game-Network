@@ -9,9 +9,12 @@
 </head>
 <body>
    <header>
-      <a href="./../../index.html">Home</a>
-      <a href="./../../about me.html">About</a>
-      <a class="active" href="">Tic Tac Toe</a>
+      <nav>
+         <a href="./../../index.html">Home</a>
+         <a href="./../../about me.html">About</a>
+         <a class="active" href="">Tic Tac Toe</a>
+      </nav>
+      <button onclick="OpenSettings()">Game Settings</button>
    </header>
    
    <div class="container">
@@ -27,9 +30,29 @@
 
       <div class="modal">
          <div class="modal-Content">
-            <h2 class="title"></h2>
-            <img class="preview">
-            <a class="button" href="">Apply</a>
+            <h1 class="title">Game Settings</h1>
+            <h2 class="title">Grid</h2>
+            <div class="slider" id="Grid">
+               <button onclick="Change('Grid', 'Decrease')" class="sliderSquare sliderActive">&lt;</button>
+               <button onclick="Change('Grid', 3)" class="sliderSquare sliderActive" id="3">3</button>
+               <button onclick="Change('Grid', 4)" class="sliderSquare" id="4">4</button>
+               <button onclick="Change('Grid', 5)" class="sliderSquare" id="5">5</button>
+               <button onclick="Change('Grid', 6)" class="sliderSquare" id="6">6</button>
+               <button onclick="Change('Grid', 7)" class="sliderSquare" id="7">7</button>
+               <button onclick="Change('Grid', 8)" class="sliderSquare" id="8">8</button>
+               <button onclick="Change('Grid', 'Increase')" class="sliderSquare sliderActive" id="Increase">&gt;</button>
+            </div>
+            <h2 class="title">Row</h2>
+            <div class="slider" id="Row">
+               <button onclick="Change('Row', 'Decrease')" class="sliderSquare sliderActive">&lt;</button>
+               <button onclick="Change('Row', 3)" class="sliderSquare sliderActive" id="3">3</button>
+               <button onclick="Change('Row', 4)" class="sliderSquare" id="4">4</button>
+               <button onclick="Change('Row', 5)" class="sliderSquare" id="5">5</button>
+               <button onclick="Change('Row', 6)" class="sliderSquare" id="6">6</button>
+               <button onclick="Change('Row', 7)" class="sliderSquare" id="7">7</button>
+               <button onclick="Change('Row', 8)" class="sliderSquare" id="8">8</button>
+               <button onclick="Change('Row', 'Increase')" class="sliderSquare sliderActive" id="Increase">&gt;</button>
+            </div>
             <span class="close">&times;</span>
          </div>
       </div>

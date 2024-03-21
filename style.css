@@ -58,35 +58,139 @@ header a:hover {
    min-height: calc(100vh - 60px);
    margin: 0;
    margin-top: 60px;
+   margin-bottom: 15px;
 }
 
-.introduction {
+.highlight {
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
    height: auto;
+   width: calc(100% - 50px);
+   margin: 15px 0;
+}
+
+.content {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   height: 300px;
+   width: 100%;
+   max-width: 800px;
+}
+
+.content .main {
+   height: 100%;
+   width: 80%;
+   border: #27374D solid 5px;
+   border-right: 0;
+   border-bottom-left-radius: 24px;
+   border-top-left-radius: 24px;
+}
+
+.content .side {
+   height: 100%;
+   width: 20%;
+   border: #27374D solid 5px;
+   border-bottom-right-radius: 18px;
+   border-top-right-radius: 18px;
+}
+
+.main {
+   position: relative;
+   height: 100%;
    width: 100%;
 }
 
-.introduction img {
-   border-radius: 18px;
-   margin-bottom: 15px;
+.main .hero {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 100%;
+   width: 100%;
+   border-top-left-radius: 16px;
+   border-bottom-left-radius: 16px;
+   z-index: 0;
 }
 
-.introduction button {
-   padding: 8px 90px;
-   border: 1px solid #27374D;
+.main .hero:hover {
+   filter: contrast(115%);
+}
+
+.main .hero:hover ~ .mainPreview {
+   background-color: #445a6b;
+}
+
+.main div {
+   position: absolute;
+   bottom: 10px;
+   left: 10px;
+   display: flex;
+   flex-direction: row;
+   justify-content: start;
+   align-items: start;
+   height: 75px;
+   width: auto;
+   padding: 5px;
+   padding-right: 10px;
+   background-color: #526D82;
    border-radius: 12px;
-   font-size: large;
+}
+
+.main div img {
+   height: 100%;
+   width: auto;
+   border-radius: 12px;
+}
+
+.main h1 {
+   margin-left: 5px;
+   margin-top: 7.5px;
+   font-size: 25px;
+   color: white;
+}
+
+.main a {
+   position: absolute;
+   right: 15px;
+   bottom: 15px;
+   padding: 15px;
    color: white;
    background-color: #526D82;
-   transition: all 0.3s ease-in-out;
+   border-radius: 25px;
+   border-bottom: #445a6b solid 4px;
+   text-decoration: none;
 }
 
-.introduction button:hover {
-   background-color: #27374D;
-   transform: scale(1.02);
+.main a:hover {
+   border-bottom: 0;
+}
+
+.side {
+   display: flex;
+   flex-direction: column;
+   justify-content: start;
+   align-items: center;
+}
+
+.side img {
+   flex: 1;
+   width: 100%;
+   filter: brightness(75%);
+}
+
+.side img:hover {
+   filter: brightness(100%);
+}
+
+.side img:first-child {
+   border-top-right-radius: 12px;
+}
+
+.side img:last-child {
+   border-bottom-right-radius: 12px;
 }
 
 /* Games folder */
