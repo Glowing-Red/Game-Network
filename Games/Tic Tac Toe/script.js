@@ -179,7 +179,7 @@ function UpdateSlider(slider, numerical) {
    
    const lastChanged = slider.lastChange;
    const direction = numerical >= lastChanged ? 1 : -1;
-
+   
    const childNodes = slider.querySelectorAll('*');
 
    function ProcessNode(index) {
