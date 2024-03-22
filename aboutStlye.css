@@ -80,7 +80,7 @@ header a:hover {
    justify-content: start;
    align-items: start;
    gap: 15px;
-   height: auto;
+   height: 50vh;
    width: 100%;
 }
 
@@ -127,7 +127,6 @@ header a:hover {
 @media (max-width: 650px) {
    .content {
       flex-direction: column;
-      gap: 25px;
    }
    
    .content h1 {
@@ -143,6 +142,7 @@ header a:hover {
       margin: 0;
       padding: 0 20px;
       padding-bottom: 50px;
+      margin-bottom: 50px;
    }
    
    .profile .normal {
