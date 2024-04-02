@@ -121,6 +121,7 @@ header a:hover {
 
 .main .hero:hover {
    filter: contrast(115%);
+   cursor: pointer;
 }
 
 .main .hero:hover ~ .mainPreview {
@@ -186,6 +187,7 @@ header a:hover {
 }
 
 .side img:hover {
+   cursor: pointer;
    filter: brightness(100%);
 }
 
