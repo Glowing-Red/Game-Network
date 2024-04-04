@@ -3,7 +3,7 @@ const canvas = document.querySelector(".display");
 const ctx = canvas.getContext('2d');
 
 const pipeStart = 300;
-const pipeSpacing = 150;
+const pipeSpacing = 100;
 const button = new Image()
 button.src = "./Assets/Start.png"
 
@@ -16,6 +16,7 @@ let ground;
 let player;
 let pipesArray;
 let gameOver = true;
+let screenRatio = window.innerWidth;
 
 function tick() {
    ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -58,7 +59,7 @@ function tick() {
    }
    
    score.innerText = scoreCount.toString().padStart(3, '0');
-
+   
    setTimeout(function() {
       tick();
    }, 1000 / 40);
@@ -126,6 +127,11 @@ function DisplayMenu() {
    
    ctx.drawImage(button, canvas.width/2 - button.width/2, canvas.height*0.55 - button.height/2);
 }
+window.addEventListener('resize', function() {
+   screenRatio = canvas.width / this.window.innerWidth;
+});
+
+screenRatio = canvas.width / this.window.innerWidth;
 
 function RestartGame() {
    pipesArray = [
@@ -133,16 +139,19 @@ function RestartGame() {
          Position: { X: pipeStart, Y: generatePosition().Y, Gap: generatePosition().Gap }
       }),
       new Pipes({
-         Position: { X: pipeStart + pipeSpacing, Y: generatePosition().Y, Gap: generatePosition().Gap }
+         Position: { X: pipeStart + (60 + Math.max(pipeSpacing * screenRatio, pipeSpacing)), Y: generatePosition().Y, Gap: generatePosition().Gap }
       }),
       new Pipes({
-         Position: { X: pipeStart + pipeSpacing * 2, Y: generatePosition().Y, Gap: generatePosition().Gap }
+         Position: { X: pipeStart + 2*(60 + Math.max(pipeSpacing * screenRatio, pipeSpacing)), Y: generatePosition().Y, Gap: generatePosition().Gap }
       }),
       new Pipes({
-         Position: { X: pipeStart + pipeSpacing * 3, Y: generatePosition().Y, Gap: generatePosition().Gap }
+         Position: { X: pipeStart + 3*(60 + Math.max(pipeSpacing * screenRatio, pipeSpacing)), Y: generatePosition().Y, Gap: generatePosition().Gap }
+      }),
+      new Pipes({
+         Position: { X: pipeStart + 4*(60 + Math.max(pipeSpacing * screenRatio, pipeSpacing)), Y: generatePosition().Y, Gap: generatePosition().Gap }
       })
    ]
-   
+   console.log(Math.max(pipeSpacing * screenRatio, pipeSpacing));
    player.Position.Y = background.Height/2;
    nearestPipe = 0;  
    player.Gravity = 0;
@@ -206,7 +215,7 @@ canvas.addEventListener("click", function(event) {
          X: (canvas.clientWidth / canvas.width),
          Y: (canvas.clientHeight / canvas.height)
       };
-
+      
       if (
          mousePos.X / ratio.X >= buttonPos.X &&
          mousePos.X / ratio.X <= buttonPos.X + button.width &&
