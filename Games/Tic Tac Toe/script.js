@@ -13,6 +13,18 @@ let gameSettings = {
    row: 3
 }
 
+function GetBombs(row, collumn) {
+   let bombs = 0;
+
+   for (let i = -1; i <= 1; i++) {
+      for (let j = -1; j <= 1; j++) {
+         if (InBounds(row + i, collumn + j) && gameBoard[row + i][collumn + j] === "Bomb") {
+            bombs++;
+         }
+      }
+   }
+}
+
 function SetupTicTacToe(gridSize) {
    while (canvas.firstChild) {
       canvas.removeChild(canvas.firstChild);
@@ -100,7 +112,7 @@ function SetupTicTacToe(gridSize) {
       for (let i = 1; i < winCondition; i++) {
          const newRow = row + i * rowIncrement;
          const newcell = cell + i * cellIncrement;
-
+         
          if (InBounds(newRow, newcell) && gameBoard[newRow][newcell][0] === flag) {
             cells.push([newRow, newcell]);
          } else {

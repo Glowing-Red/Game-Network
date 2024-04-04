@@ -216,6 +216,8 @@ canvas.addEventListener("click", function(event) {
          gameOver = false;
          RestartGame();
       }
+   } else {
+      player.Gravity = -10;
    }
 })
 

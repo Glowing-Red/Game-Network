@@ -4,7 +4,7 @@ const ctx = canvas.getContext('2d')
 const timerElement = document.getElementById('timer');
 
 let roundTime = 120;
-const Debugging = false;
+const Debugging = true;
 
 let matchActive = false;
 let roundOver = true;
