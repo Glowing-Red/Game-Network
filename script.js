@@ -11,6 +11,7 @@ const button = modal.querySelector(".button");
 let modalChosen;
 let mobileMode = false;
 
+const mobileGames = ["Tic Tac Toe"]
 const games = {
    "Mystic Blade": "The World of Sorcery and Martial Arts. A 2 player game on a single device for some casual fun and fast pace rounds, with a random map and hero every match!",
    "Tic Tac Toe": "It's a game as old as the hills, but no less fun or popular. Play the classic mode in the usual 3x3 grid or customize the game's grid, and required row length to win!",
@@ -42,7 +43,7 @@ function Open(gameName, gameDesc) {
    description.textContent = "";
    description.innerHTML += gameDesc;
 
-   if (mobileMode === true) {
+   if (mobileMode === true && !mobileGames.includes(gameName)) {
       button.style.pointerEvents = "none";
       button.innerText = "Not Available"
    } else {
@@ -66,7 +67,7 @@ function Highlight(game) {
 
    const playButton = gameHighlight.querySelector("a");
    
-   if (mobileMode === true) {
+   if (mobileMode === true && !mobileGames.includes(game)) {
       playButton.style.pointerEvents = "none";
       playButton.innerText = "Not Available"
    } else {

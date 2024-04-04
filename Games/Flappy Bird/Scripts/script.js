@@ -151,7 +151,7 @@ function RestartGame() {
          Position: { X: pipeStart + 4*(60 + Math.max(pipeSpacing * screenRatio, pipeSpacing)), Y: generatePosition().Y, Gap: generatePosition().Gap }
       })
    ]
-   console.log(Math.max(pipeSpacing * screenRatio, pipeSpacing));
+   
    player.Position.Y = background.Height/2;
    nearestPipe = 0;  
    player.Gravity = 0;
